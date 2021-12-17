@@ -87,14 +87,14 @@
                   <div class="form-check col-md-9 col-sm-12 mb-3" v-for="(issuable, key) in issuables.credentials" :key="key">
                     <input class="form-check-input me-4" type="checkbox" :id="'issuable-' + key" :name="'issuable-' + key" :value="key" v-model="checkedCredentials">
                     <label class="form-check-label">{{/*issuable.type*/}}{{issuable.description}} |</label>
-                    <button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+key" class="text-primary _view-btn">View details</button>
+                    <!--<button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+key" class="text-primary _view-btn">View details</button>-->
                   </div>
                 </div>
               </form>
               <a href="#" @click="tester">Test API</a>
               <button @click="goToWallet(wallets[0].id)" class="btn btn-primary py-2 px-5 _cbtn" :disabled="this.checkedCredentials.length > 0 ? false : true"><img v-if="btnLoading" src="loader.gif" width="20px"/><span v-else>Confirm</span></button>
               <!--Credendtial Modal -->
-              <div class="modal fade" id="credentilModalVerifiableId" tabindex="-1" aria-labelledby="credentilModalVerifiableIdLabel" aria-hidden="true">
+              <!--<div class="modal fade" id="credentilModalVerifiableId" tabindex="-1" aria-labelledby="credentilModalVerifiableIdLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -490,7 +490,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
           </div>
         </div>
       </section>
