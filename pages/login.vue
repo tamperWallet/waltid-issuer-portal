@@ -2,7 +2,7 @@
   <section class="text-center login-body">
     <main class="form-signin">
      <form form action="" id="login-form" class="my-4" @submit.prevent="login">
-    <img class="mb-4" src="https://static.intercomassets.com/avatars/5059525/square_128/custom_avatar-1628056261.png?1628056261" alt="" width="72">
+      <img class="mb-4" src="https://static.intercomassets.com/avatars/5059525/square_128/custom_avatar-1628056261.png?1628056261" alt="" width="72">
       <h1 class="h3 mb-3 fw-normal">Please sign in to the <b>Demo Issuer Portal</b></h1>
       <br />
       <div class="form-floating">
@@ -13,27 +13,30 @@
           autocomplete="off"
           name="email"
           v-model="email"
-          placeholder="E-mail address"/>
-        <label for="floatingInput">E-mail address</label>
+          :placeholder="$t('EMAIL_ADDRESS')"/>
+        <label for="floatingInput">{{$t('EMAIL_ADDRESS')}}</label>
       </div>
       <div class="form-floating">
         <input
          type="password"
          class="form-control"
          id="floatingPassword"
-         placeholder="Password"
+         :placeholder="$t('PASSWORD')"
          name="password"
          autocomplete="off"
          v-model="password"/>
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">{{$t('PASSWORD')}}</label>
       </div>
       <div class="checkbox mb-3">
        <label>
-         <input type="checkbox" value="remember-me"> Remember me
+         <input type="checkbox" value="remember-me"> {{$t('REMEMBER_ME')}}
        </label>
       </div>
-      <button class="w-100 btn btn-lg btn-primary _animation-fade" button type="submit" name="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+      <button class="mb-3 w-100 btn btn-lg btn-primary _animation-fade" button type="submit" name="submit">{{$t('SIGN_IN')}}</button>
+      <a href="#" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="$i18n.setLocale(locale.code)">
+        <img :src="locale.flag" width="20px" height="15px" :alt="locale.iso" class="me-2 border border-white" />
+      </a>
+      <p class="mt-3 mb-3 text-muted">&copy; 2021 walt.id </p>
      </form>
     </main>
   </section>
@@ -47,6 +50,12 @@ export default {
       email: "",
       password: "",
       error: null
+    }
+  },
+  computed: {
+    availableLocales () {
+      console.log("locales", this.$i18n.locales)
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
     }
   },
   methods: {

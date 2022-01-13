@@ -45,7 +45,8 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    "@nuxtjs/auth"
+    "@nuxtjs/auth",
+    '@nuxtjs/i18n'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -80,6 +81,21 @@ export default {
         logout: '/logout',
         home: '/Credentials'
       }
+    }
+  },
+
+  i18n: {
+    /* module options */
+    langDir: '~/locales/',
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en.js', flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png' },
+      { code: 'de', iso: 'de-DE', file: 'de.js', flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png' },
+      { code: 'fr', iso: 'fr-FR', file: 'fr.js', flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931958%29.svg/1200px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931958%29.svg.png' },
+    ],
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    vueI18n: {
+      fallbackLocale: 'en'
     }
   },
 

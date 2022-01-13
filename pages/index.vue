@@ -44,31 +44,19 @@
             <!--          <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>-->
             <!--          <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>-->
             <!--        </svg>-->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              fill="currentColor"
-              class="bi bi-check2-square"
-              viewBox="0 0 16 16"
-            >
-              <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-              <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-            </svg>
-
-            <strong>Issuer Portal</strong>
+            <img class="me-3" src="/waltid-white-logo.png" alt="" width="50px">
+            <strong>walt.id</strong>
           </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarHeader"
-            aria-controls="navbarHeader"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon" />
-          </button>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="$i18n.setLocale(locale.code)">
+                <img :src="locale.flag" width="20px" height="15px" :alt="locale.iso" class="me-2 border border-white" />
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" />
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
@@ -77,35 +65,39 @@
         <div class="row py-lg-5">
           <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-normal">
-              Claim credentials
+              {{$t('CLAIM_CREDENTIALS')}}
             </h1>
             <p class="lead text-muted fw-normal mb-4">
-              Select the credential you want to get issued
+              {{$t('SELECT_CREDENTIALS_MSG')}}
             </p>
               <form>
                 <div class="d-flex flex-column align-items-md-center align-items-sm-start text-start">
                   <div class="form-check col-md-9 col-sm-12 mb-3" v-for="(issuable, key) in issuables.credentials" :key="key">
                     <input class="form-check-input me-4" type="checkbox" :id="'issuable-' + key" :name="'issuable-' + key" :value="key" v-model="checkedCredentials">
+<!--<<<<<<< HEAD -->
                     <label class="form-check-label">{{/*issuable.type*/}}{{issuable.description}} |</label>
                     <!--<button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+key" class="text-primary _view-btn">View details</button>-->
+<!--=======
+                    <label class="form-check-label">{{/*issuable.type*/}}{{$t(issuable.type)}} |</label>
+                    <button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+key" class="text-primary _view-btn mb-2"><i class="bi bi-box-arrow-up-right p-1"></i></button>
+>>>>>>> master-->
                   </div>
                 </div>
               </form>
-              <a href="#" @click="tester">Test API</a>
-              <button @click="goToWallet(wallets[0].id)" class="btn btn-primary py-2 px-5 _cbtn" :disabled="this.checkedCredentials.length > 0 ? false : true"><img v-if="btnLoading" src="loader.gif" width="20px"/><span v-else>Confirm</span></button>
+              <button @click="goToWallet(wallets[0].id)" class="btn btn-primary py-2 px-5 _cbtn" :disabled="this.checkedCredentials.length > 0 ? false : true"><img v-if="btnLoading" src="loader.gif" width="20px"/><span v-else>{{$t('CONFIRM')}}</span></button>
               <!--Credendtial Modal -->
               <!--<div class="modal fade" id="credentilModalVerifiableId" tabindex="-1" aria-labelledby="credentilModalVerifiableIdLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">View Credential</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">{{$t('EDIT_CREDENTIAL')}}</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row _forms mb-3">
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" placeholder="First name" aria-label="First name" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.firstName">
+                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.FIRST_NAME')" aria-label="First name" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.firstName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -116,7 +108,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" placeholder="Family name" aria-label="Family name" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.familyName">
+                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.LAST_NAME')" aria-label="Family name" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.familyName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -127,7 +119,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-people"></i>
-                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" placeholder="Gender" aria-label="Gender" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.gender">
+                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.GENDER')" aria-label="Gender" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.gender">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -138,7 +130,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" placeholder="Date Of Birth" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.dateOfBirth">
+                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DATE_OF_BIRTH')" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.dateOfBirth">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -149,7 +141,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-map"></i>
-                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" placeholder="Nationality" aria-label="Nationality" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.nationality">
+                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.NATIONALITY')" aria-label="Nationality" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.nationality">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -160,7 +152,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-geo-alt"></i>
-                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" placeholder="Place Of Birth" aria-label="PlaceOfBirth" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.placeOfBirth">
+                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.PLACE_OF_BIRTH')" aria-label="PlaceOfBirth" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.placeOfBirth">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -171,7 +163,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-credit-card-2-front"></i>
-                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" placeholder="Personal Identifier" aria-label="PersonalIdentifier" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.personalIdentifier">
+                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.PERSONAL_IDENTIFIER')" aria-label="PersonalIdentifier" v-model="issuables.credentials.VerifiableId.credentialData.credentialSubject.personalIdentifier">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -180,7 +172,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">Close</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                     </div>
                   </div>
                 </div>
@@ -189,14 +181,14 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">View Credential</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">{{$t('EDIT_CREDENTIAL')}}</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row _forms mb-3">
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" placeholder="First name" aria-label="First name" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.givenNames">
+                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.FIRST_NAME')" aria-label="First name" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.givenNames">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -207,7 +199,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" placeholder="Family name" aria-label="Family name" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.familyName">
+                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.LAST_NAME')" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.familyName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -218,7 +210,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" placeholder="Date Of Birth" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.dateOfBirth">
+                              <input :disabled="inputIndex === 2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DATE_OF_BIRTH')" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableDiploma.credentialData.credentialSubject.dateOfBirth">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -227,7 +219,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">Close</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                     </div>
                   </div>
                 </div>
@@ -236,14 +228,14 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">View Credential</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">{{$t('EDIT_CREDENTIAL')}}</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row _forms mb-3">
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" placeholder="First name" aria-label="First name" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.givenNames">
+                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.FIRST_NAME')" aria-label="First name" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.givenNames">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -254,7 +246,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" placeholder="Family name" aria-label="Family name" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.familyName">
+                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.LAST_NAME')" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.familyName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -265,7 +257,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-people"></i>
-                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" placeholder="Gender" aria-label="Gender" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.personSex">
+                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.GENDER')" aria-label="Gender" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.personSex">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -276,7 +268,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" placeholder="Date Of Birth" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.dateOfBirth">
+                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DATE_OF_BIRTH')" aria-label="DateOfBirth" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.dateOfBirth">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -287,7 +279,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" placeholder="Vaccine Or Prophylaxis" aria-label="vaccineOrProphylaxis" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].vaccineOrProphylaxis">
+                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.VACCINE_OR_PROFYLAXIS')" aria-label="vaccineOrProphylaxis" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].vaccineOrProphylaxis">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -298,7 +290,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" placeholder="Vaccine Medicinal Product" aria-label="vaccineMedicinalProduct" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].vaccineMedicinalProduct">
+                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.VACCINE_MEDICINAL_PRODUCT')" aria-label="vaccineMedicinalProduct" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].vaccineMedicinalProduct">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -309,7 +301,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" placeholder="Dose Number" aria-label="doseNumber" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].doseNumber">
+                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DOSE_NUMBER')" aria-label="doseNumber" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].doseNumber">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -320,7 +312,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 7 ? false : true" type="text" :class="inputIndex === 7 ? 'form-control border-primary' : 'form-control'" placeholder="Date Of Vaccination" aria-label="dateOfVaccination" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].dateOfVaccination">
+                              <input :disabled="inputIndex === 7 ? false : true" type="text" :class="inputIndex === 7 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DATE_OF_VACCINATION')" aria-label="dateOfVaccination" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].dateOfVaccination">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -331,7 +323,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 8 ? false : true" type="text" :class="inputIndex === 8 ? 'form-control border-primary' : 'form-control'" placeholder="Administering Centre" aria-label="administeringCentre" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].administeringCentre">
+                              <input :disabled="inputIndex === 8 ? false : true" type="text" :class="inputIndex === 8 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.ADMINISTERING_CENTER')" aria-label="administeringCentre" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].administeringCentre">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -342,7 +334,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 9 ? false : true" type="text" :class="inputIndex === 9 ? 'form-control border-primary' : 'form-control'" placeholder="Country Of Vaccination" aria-label="countryOfVaccination" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].countryOfVaccination">
+                              <input :disabled="inputIndex === 9 ? false : true" type="text" :class="inputIndex === 9 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.COUNTRY_OF_VACCINATION')" aria-label="countryOfVaccination" v-model="issuables.credentials.VerifiableVaccinationCertificate.credentialData.credentialSubject.vaccinationProphylaxisInformation[0].countryOfVaccination">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -351,7 +343,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">Close</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                     </div>
                   </div>
                 </div>
@@ -360,14 +352,14 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">View Credential</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">{{$t('EDIT_CREDENTIAL')}}</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row _forms mb-3">
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" placeholder="Family name" aria-label="familyName" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.familyName">
+                              <input :disabled="inputIndex === 0 ? false : true" type="text" :class="inputIndex === 0 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.LAST_NAME')" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.familyName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -378,7 +370,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-card-text"></i>
-                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" placeholder="First name" aria-label="firstName" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.firstNames">
+                              <input :disabled="inputIndex === 1 ? false : true" type="text" :class="inputIndex === 1 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.FIRST_NAME')" aria-label="firstName" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.firstNames">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -389,7 +381,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-people"></i>
-                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" placeholder="Gender" aria-label="Gender" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.gender">
+                              <input :disabled="inputIndex ===2 ? false : true" type="text" :class="inputIndex === 2 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.GENDER')" aria-label="Gender" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.gender">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -400,7 +392,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" placeholder="Date Of Birth" aria-label="DateOfBirth" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.dateOfBirth">
+                              <input :disabled="inputIndex === 3 ? false : true" type="text" :class="inputIndex === 3 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.DATE_OF_BIRTH')" aria-label="DateOfBirth" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.dateOfBirth">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -411,7 +403,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" placeholder="Street address" aria-label="streetAddress" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.streetAddress">
+                              <input :disabled="inputIndex === 4 ? false : true" type="text" :class="inputIndex === 4 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.STREET_ADDRESS')" aria-label="streetAddress" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.streetAddress">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -422,7 +414,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" placeholder="Postal code" aria-label="postalCode" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.postalCode">
+                              <input :disabled="inputIndex === 5 ? false : true" type="text" :class="inputIndex === 5 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.POSTAL_CODE')" aria-label="postalCode" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.postalCode">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -433,7 +425,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" placeholder="Locality" aria-label="locality" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.locality">
+                              <input :disabled="inputIndex === 6 ? false : true" type="text" :class="inputIndex === 6 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.LOCALITY')" aria-label="locality" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.locality">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -444,7 +436,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 7 ? false : true" type="text" :class="inputIndex === 7 ? 'form-control border-primary' : 'form-control'" placeholder="Country" aria-label="countryName" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.countryName">
+                              <input :disabled="inputIndex === 7 ? false : true" type="text" :class="inputIndex === 7 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.COUNTRY_NAME')" aria-label="countryName" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.address.countryName">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -455,7 +447,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 8 ? false : true" type="text" :class="inputIndex === 8 ? 'form-control border-primary' : 'form-control'" placeholder="Family status" aria-label="familyStatus" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.familyStatus">
+                              <input :disabled="inputIndex === 8 ? false : true" type="text" :class="inputIndex === 8 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.FAMILY_STATUS')" aria-label="familyStatus" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.familyStatus">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -466,7 +458,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 9 ? false : true" type="text" :class="inputIndex === 9 ? 'form-control border-primary' : 'form-control'" placeholder="Identification number" aria-label="identificationNumber" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.identificationNumber">
+                              <input :disabled="inputIndex === 9 ? false : true" type="text" :class="inputIndex === 9 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.IDENTIFICATION_NUMBER')" aria-label="identificationNumber" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.identificationNumber">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -477,7 +469,7 @@
                           <div class="col-11">
                             <div class="right-inner-addon input-container">
                               <i class="bi bi-calendar2-event"></i>
-                              <input :disabled="inputIndex === 10 ? false : true" type="text" :class="inputIndex === 10 ? 'form-control border-primary' : 'form-control'" placeholder="Nationality" aria-label="nationality" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.nationality">
+                              <input :disabled="inputIndex === 10 ? false : true" type="text" :class="inputIndex === 10 ? 'form-control border-primary' : 'form-control'" :placeholder="$t('CREDENTIAL.NATIONALITY')" aria-label="nationality" v-model="issuables.credentials.ProofOfResidence.credentialData.credentialSubject.nationality">
                             </div>
                           </div>
                           <div class="col _edit-btn d-flex flex-column align-items-center justify-content-center text-start">
@@ -486,7 +478,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">Close</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                     </div>
                   </div>
                 </div>
@@ -512,12 +504,17 @@ export default {
       btnLoading: false
     }
   },
+  computed: {
+    availableLocales () {
+      console.log("locales", this.$i18n.locales)
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
+  },
   async asyncData ({ $axios }) {
     const wallets = await $axios.$get('/issuer-api/wallets/list')
     const issuables = await $axios.$get('/issuer-api/credentials/listIssuables')
     return { wallets, issuables }
   },
-
   methods: {
     reset(){
       this.inputIndex=null
@@ -573,8 +570,6 @@ button._view-btn{
     padding: 17px 15px;
     pointer-events: none;
 }
-
-
 .right-inner-addon {
     position: relative;
 }
@@ -587,7 +582,6 @@ button._view-btn{
     padding: 17px 15px;
     pointer-events: none;
 }
-
 .left-and-right-inner-addon {
     position: relative;
 }
@@ -595,15 +589,12 @@ button._view-btn{
     padding-right: 35px !important;
     padding-left: 35px !important;
 }
-
 .left-and-right-inner-addon i.right {
     position: absolute;
     right: 0px;
     padding: 17px 15px;
     pointer-events: none;
 }
-
-
 .right-inner-addon-b {
     position: relative;
 }
