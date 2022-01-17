@@ -1,5 +1,12 @@
 # waltid-issuer-portal
 
+In the
+[MicroBlock](https://www.tuni.fi/en/research/microblock-advancing-exchange-micro-credentials-ebsi)
+project the issuer has been modified to work with our modified version of the
+[backend](https://github.com/MicroBlock-TAU/waltid-wallet-backend). That version can issue micro credentials using the
+[edclexcel2ebsi](https://github.com/MicroBlock-TAU/edclexcel2ebsi) library which
+creates credentiasl from EDCL data stored to an Excel file.
+
 ## Build Setup
 
 ### Using Docker
