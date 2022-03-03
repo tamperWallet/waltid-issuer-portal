@@ -72,10 +72,10 @@
             </p>
               <form>
                 <div class="d-flex flex-column align-items-md-center align-items-sm-start text-start">
-                  <div class="form-check col-md-9 col-sm-12 mb-3" v-for="issuable in issuables.credentials" :key="issuable.type">
-                    <input class="form-check-input me-4" type="checkbox" :id="'issuable-' + issuable.type" :name="'issuable-' + issuable.type" :value="issuable.type" v-model="checkedCredentials">
-                    <label class="form-check-label">{{/*issuable.type*/}}{{$t(issuable.type)}} |</label>
-                    <button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+issuable.type" class="text-primary _view-btn mb-2"><i class="bi bi-box-arrow-up-right p-1"></i></button>
+                  <div class="form-check col-md-9 col-sm-12 mb-3" v-for="issuable in issuables.credentials" :key="issuable.credentialData.title">
+                    <input class="form-check-input me-4" type="checkbox" :id="'issuable-' + issuable.credentialData.title" :name="'issuable-' + issuable.credentialData.title" :value="issuable.credentialData.title" v-model="checkedCredentials">
+                    <label class="form-check-label">{{/*issuable.credentialData.title*/}}{{issuable.credentialData.title}}</label>
+                    <!--<button type="button" data-bs-toggle="modal" :data-bs-target="'#credentilModal'+issuable.type" class="text-primary _view-btn mb-2"><i class="bi bi-box-arrow-up-right p-1"></i></button>-->
                     <!--Credendtial Modal -->
                     <div class="modal fade" :id="'credentilModal' + issuable.type" tabindex="-1" :aria-labelledby="'credentilModal'+issuable.type" aria-hidden="true">
                       <div class="modal-dialog">
@@ -152,7 +152,7 @@ export default {
       this.btnLoading = true;
       console.log("Selected issuables:", this.checkedCredentials)
       let selectedIssuables = {
-        credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
+        credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.credentialData.title) >= 0)
       }
       console.log("Selected issuables:", selectedIssuables)
       const params = this.sessionId != null ? { "sessionId": this.sessionId } : { "walletId": walletId }
