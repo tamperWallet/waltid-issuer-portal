@@ -45,7 +45,7 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    "@nuxtjs/auth",
+    "@nuxtjs/auth-next",
     '@nuxtjs/i18n'
   ],
 
@@ -56,10 +56,12 @@ export default {
   },
 
   proxy: {
-    // '/issuer-api/': 'https://wallet.waltid.org',
-    // '/api/': 'https://wallet.waltid.org'
-     '/issuer-api/': 'http://localhost:8080/',
-     '/api/': 'http://localhost:8080/'
+    '/issuer-api/': 'https://wallet.waltid.org',
+    '/onboarding-api/': 'https://wallet.waltid.org',
+    '/api/': 'https://wallet.waltid.org'
+    //'/issuer-api/': 'http://localhost:8080/',
+    //'/onboarding-api/': 'http://localhost:8080/',
+    //'/api/': 'http://localhost:8080/'
   },
 
   auth: {
@@ -78,12 +80,28 @@ export default {
           logout: false
         }
       },
-      redirect: {
-        login: '/login',
-        logout: '/logout',
-        home: '/Credentials'
+      localOnboarding: {
+        scheme: 'local',
+        token: {
+          property: "token",
+          global: true,
+          required: true,
+          type: "Bearer"
+        },
+        user: false,
+        endpoints: {
+          login: { url: "onboarding-api/auth/userToken", method: "get" },
+          user: { url: "api/auth/userInfo", method: "get" },
+          logout: false
+        }
       }
-    }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/logout',
+      home: '/Credentials'
+    },
+    cookie: false
   },
 
   i18n: {
@@ -103,6 +121,10 @@ export default {
 
   router: {
     middleware: ["auth"]
+  },
+
+  publicRuntimeConfig: {
+    copyright: process.env.COPYRIGHT || 'powered by walt.id'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
