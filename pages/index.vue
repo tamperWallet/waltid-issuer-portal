@@ -86,7 +86,7 @@
                               <a @click="enableCredentialEditor ? disableInput() : enableInput()" href="#enable" :class="enableCredentialEditor ? 'p-0 text-success fst-italic' : 'p-0 text-primary fst-italic' "><i :class="enableCredentialEditor ? 'bi bi-check-square' : 'bi bi-pencil-square'"></i></a>
                             </div>
                           </div>
-                          <credential-editor :issuable="issuable" :enableEditor="enableCredentialEditor" class="modal-body" />
+                          <!--<credential-editor :issuable="issuable" :enableEditor="enableCredentialEditor" class="modal-body" />-->
                           <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                           </div>
