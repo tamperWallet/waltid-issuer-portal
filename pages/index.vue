@@ -63,6 +63,7 @@
     <main>
       <section class="py-5 text-center container">
         <div class="row py-lg-5">
+          
           <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-normal">
               {{$t('CLAIM_CREDENTIALS')}}
@@ -133,6 +134,10 @@ export default {
   async asyncData ({ $axios, query }) {
     const wallets = await $axios.$get('/issuer-api/wallets/list')
     const issuables = await $axios.$get('/issuer-api/credentials/listIssuables', { params: query })
+    console.log("cia issuables:")
+    console.log(issuables)
+    console.log(issuables.credentials)
+
     return { wallets, issuables }
   },
   methods: {
@@ -148,15 +153,116 @@ export default {
       this.enableCredentialEditor=false;
       this.btnDisabled=true;
     },
+    
     async goToWallet (walletId) {
       this.btnLoading = true;
-      console.log("Selected issuables:", this.checkedCredentials)
+
+      console.log("pasirinkom ID")
+
+      console.log("checked credentials:")
+      console.log(this.checkedCredentials)
+      console.log("checked credentials:", this.checkedCredentials)
+      console.log(this.checkedCredentials)
+      console.log("wallet id :")
+      console.log(walletId)
+      console.log(this.issuables.credentials.VerifiableId)
+      let arrayIssuables = Array.from(this.issuables.credentials)
+      console.log("array issuables:")
+      console.log(arrayIssuables)
+
+      let arr = []
+
+      if(this.issuables.credentials.VerifiableId){
+          arr.push(this.issuables.credentials.VerifiableId)
+      }
+      if(this.issuables.credentials.VerifiableDiploma){
+          arr.push(this.issuables.credentials.VerifiableDiploma)
+      }
+      console.log("arr :")
+      console.log(arr)
+
+
+
+      
+      console.log("legth :  ", Array.isArray(this.issuables.credentials));
+      console.log("checked: ", Array.isArray(this.checkedCredentials));
+
+      // for (let i = 0; i < issuables.credentials; i++) {
+      //     text += cars[i] + "<br>";
+      // }
+
+      // this.issuables.credentials.forEach(elem => console.log(elem))
+      // let isssus = 
+      // let selectedIssuables = {
+      //   credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
+      // }
+      let newMap = new Map();
+      let dict = {};
+      console.log("type: " + this.issuables.credentials['VerifiableId'])
+      //newMap.set(this.issuables.credentials['VerifiableId'].type,this.issuables.credentials['VerifiableId']);
+      console.log("newMap: ");
+      console.log(newMap);
+
+      for (var m in this.issuables.credentials){
+        newMap.set(this.issuables.credentials[m].type,this.issuables.credentials[m]);
+        dict[m] = this.issuables.credentials[m];
+        
+        
+        
+      }
+     // let filtered = new Map([...arr].filter(([k, v]) => this.checkedCredentials.findIndex(cc => cc=v.type)))
+
+      //let filtered = new Map([...this.issuables.credentials])
+
+      let o = Array.from(this.issuables.credentials)
+      console.log(o)
+      //let filtered = new Map(arr.map(s => [s.]))
+      // console.log("filtered")
+      // console.log(filtered)
+
+
+      //console.log(this.issuables.credentials["VerifiableId"])
+      
+      // let selectedIssuables = {
+      //   credentials: arr.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
+      // }
+
+      // let selectedIssuables = {
+      //   credentials: newMap.filter(c => this.checkedCredentials.findIndex(cc => cc==c.type) >= 0 )
+      // }
+
+      console.log("dict :")
+      console.log(dict)
+      
+      let cred = this.issuables.credentials;
+      let tarkim = Object.keys(cred).filter((key) => key.includes('VerifiableId')).reduce((cur, key) => { return Object.assign(cur, { [key]: cred[key] })}, {})
+
+      console.log("tarkim: ")
+      console.log(tarkim)
+      console.log(cred)
+  //     let selectedIssuables = {
+  //       credentials: Object.keys(cred).
+  // filter((c) => this.checkedCredentials.findIndex(cc => cc==c) >= 0).
+  // reduce((cur, key) => { return Object.assign(cur, { [key]: cred[key] })}, {})
+  //     }
+      
+
+      // let selectedIssuables = {
+      //   credentials: this.checkedCredentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
+      // }
       let selectedIssuables = {
         credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
       }
+    
+      console.log("credentials:")
+      console.log(selectedIssuables.credentials)
       console.log("Selected issuables:", selectedIssuables)
+      console.log("sessionid : " + this.sessionId)
+      console.log(this.sessionId)
+      
       const params = this.sessionId != null ? { "sessionId": this.sessionId } : { "walletId": walletId }
       const walletUrl = await this.$axios.$post('/issuer-api/credentials/issuance/request', selectedIssuables, { params: params })
+      console.log(walletUrl)
       setTimeout(()=>{window.location = walletUrl}, 2000)
     },
     tester(){

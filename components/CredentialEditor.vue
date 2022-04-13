@@ -89,7 +89,7 @@
       </div>
 
       <!-- VerifiableVaccinationCertificate -->
-      <div v-if="issuable.type == 'VerifiableVaccinationCertificate'">
+      <!-- <div v-if="issuable.type == 'VerifiableVaccinationCertificate'">
         <div class="row _forms mb-3">
           <div class="col-11">
             <div class="right-inner-addon input-container">
@@ -170,10 +170,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- ProofOfResidence -->
-      <div v-if="issuable.type == 'ProofOfResidence'">
+      <!-- <div v-if="issuable.type == 'ProofOfResidence'">
         <div class="row _forms mb-3">
           <div class="col-11">
             <div class="right-inner-addon input-container">
@@ -262,10 +262,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
   <!-- ParticipantCredential -->
-  <div v-if="issuable.type == 'ParticipantCredential'">
+  <!-- <div v-if="issuable.type == 'ParticipantCredential'">
     <div class="row _forms mb-3">
       <div class="row _forms mb-3">
         <div class="col-11">
@@ -298,7 +298,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  -->
     </div>
 </template>
 <script>
