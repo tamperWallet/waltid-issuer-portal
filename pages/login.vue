@@ -2,7 +2,8 @@
   <section class="text-center login-body">
     <main class="form-signin">
      <form form action="" id="login-form" class="my-4" @submit.prevent="login">
-      <img class="mb-4" src="https://static.intercomassets.com/avatars/5059525/square_128/custom_avatar-1628056261.png?1628056261" alt="" width="72">
+      <img class="mb-4" src="https://ktu.edu/wp-content/uploads/2016/08/logo_ukrainos_veliava.svg" alt="" width="150">
+      <!-- <img class="mb-4" src="https://static.intercomassets.com/avatars/5059525/square_128/custom_avatar-1628056261.png?1628056261" alt="" width="72"> -->
       <h1 class="h3 mb-3 fw-normal">Please sign in to the <b>Demo Issuer Portal</b></h1>
       <br />
       <div class="form-floating">
@@ -123,4 +124,29 @@ export default {
       font-size: 3.5rem;
     }
   }
+  .buttonktu:hover, .buttonktu:focus {
+  background-color: #000000; /* Green */
+  color: white;
+  transition-duration: 0.5s;
+}
+.buttonktu{
+      position: relative;
+    background: transparent;
+    float: none !important;
+   
+    bottom: initial;
+    right: initial;
+    min-width: 90px;
+    min-height: 32px;
+    border-radius: 4px;
+
+    font-size: 16px !important;
+    padding: 8px 20px 8px 19px;
+    border: 2px solid #000101;
+    text-align: center;
+    color: #000101;
+    font-family: "PF DinText Pro Medium";
+    width: 100%;
+   
+}
 </style>
