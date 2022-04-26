@@ -33,11 +33,12 @@
          <input type="checkbox" value="remember-me"> {{$t('REMEMBER_ME')}}
        </label>
       </div>
-      <button class="mb-3 w-100 btn btn-lg btn-primary _animation-fade" button type="submit" name="submit">{{$t('SIGN_IN')}}</button>
-      <a href="#" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="$i18n.setLocale(locale.code)">
+      <!--<button class="mb-3 w-100 btn btn-lg btn-primary _animation-fade" button type="submit" name="submit">{{$t('SIGN_IN')}}</button>-->
+      <button class="buttonktu mb-3 w-100 btn btn-lg btn-primary _animation-fade" button type="submit" name="submit">{{$t('SIGN_IN')}}</button>
+      <!--<a href="#" v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="$i18n.setLocale(locale.code)">
         <img :src="locale.flag" width="20px" height="15px" :alt="locale.iso" class="me-2 border border-white" />
-      </a>
-      <p class="mt-3 mb-3 text-muted">&copy; 2021 walt.id </p>
+      </a>-->
+      <!--<p class="mt-3 mb-3 text-muted">&copy; 2021 walt.id </p>-->
      </form>
     </main>
   </section>
@@ -81,6 +82,32 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.cdnfonts.com/css/pf-dintext-pro-medium');
+.buttonktu:hover, .buttonktu:focus {
+  background-color: #000000; /* Green */
+  color: white;
+  transition-duration: 0.5s;
+}
+.buttonktu{
+      position: relative;
+    background: transparent;
+    float: none !important;
+
+    bottom: initial;
+    right: initial;
+    min-width: 90px;
+    min-height: 32px;
+    border-radius: 4px;
+
+    font-size: 16px !important;
+    padding: 8px 20px 8px 19px;
+    border: 2px solid #000101;
+    text-align: center;
+    color: #000101;
+    font-family: "PF DinText Pro Medium";
+    width: 100%;
+
+}
   .login-body {
     height: 100vh;
     display: flex;
@@ -133,7 +160,7 @@ export default {
       position: relative;
     background: transparent;
     float: none !important;
-   
+
     bottom: initial;
     right: initial;
     min-width: 90px;
@@ -147,6 +174,6 @@ export default {
     color: #000101;
     font-family: "PF DinText Pro Medium";
     width: 100%;
-   
+
 }
 </style>

@@ -8,6 +8,7 @@ ul li {
     animation-duration: 1.3s;
 }
 
+/*
 h1,
 h2,
 h3,
@@ -19,6 +20,7 @@ p,
     animation: fadeInDown;
     animation-duration: 1.5s;
 }
+*/
 
 ._image,
 ._search,

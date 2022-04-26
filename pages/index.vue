@@ -67,7 +67,7 @@
         <div class="container">
            <div class="row">
               <div class="col-md-2 midhead">
-                  <a href="#" class="navbar-brand d-flex">       
+                  <a href="#" class="navbar-brand d-flex">
                   <img class="me-3" src="https://ktu.edu/wp-content/uploads/2016/08/logo_ukrainos_veliava.svg" alt="" width="110px">
                   </a>
               </div>
@@ -94,7 +94,7 @@
 
 	<li class="menu-item">
     <a class="topmenu mainf" title="intranetas &#8211; prisijungimas per KTU VPN" target="_blank" href="https://intranet.ktu.lt"><span class="glyphicon intranetas &#8211; prisijungimas per KTU VPN"></span>&nbsp;intranet</a></li>
-  
+
 	<li class="menu-item"><a class="topmenu mainf" title="darbuotojÅ³ paÅtas" target="_blank" href="https://pastas.ktu.lt">email for employees</a></li>
 	<li class="menu-item"><a class="topmenu mainf" title="darbuotojo atmintinÄ—" target="_blank" href="https://en.ktu.edu/employee-guide/">employee guide</a></li>
 	<li class="menu-item"><a class="topmenu mainf" title="praneÅk" target="_blank" href="https://pranesk.ktu.edu/en">report</a></li>
@@ -104,14 +104,14 @@
                 </nav>
               </div>
             </div>
-        
+
         </div>
 </header>
 
     <main>
-      <section class="py-5 text-center container">
+      <section class="mainf py-5 text-center container">
         <div class="row py-lg-5">
-          
+
           <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-normal">
               {{$t('CLAIM_CREDENTIALS')}}
@@ -137,7 +137,7 @@
                           </div>
                           <credential-editor :issuable="issuable" :enableEditor="enableCredentialEditor" class="modal-body" />
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
+                            <button type="button" class="buttonktu btn btn-primary" data-bs-dismiss="modal" @click="reset">{{$t('CLOSE')}}</button>
                           </div>
                         </div>
                       </div>
@@ -145,7 +145,7 @@
                   </div>
                 </div>
               </form>
-              <button @click="goToWallet(wallets[0].id)" class="btn btn-primary py-2 px-5 _cbtn" :disabled="this.checkedCredentials.length > 0 ? false : true"><img v-if="btnLoading" src="loader.gif" width="20px"/><span v-else>{{$t('CONFIRM')}}</span></button>
+              <button @click="goToWallet(wallets[0].id)" class="buttonktu btn btn-primary py-2 px-5 _cbtn" :disabled="this.checkedCredentials.length > 0 ? false : true"><img v-if="btnLoading" src="loader.gif" width="20px"/><span v-else>{{$t('CONFIRM')}}</span></button>
           </div>
         </div>
       </section>
@@ -174,7 +174,7 @@ email <a href="mailto:ktu@ktu.lt">ktu@ktu.lt</a></p>
                       <a href="https://www.instagram.com/ktuspace/" target="_blank"><img src="https://ktu.edu/wp-content/themes/ktu/images/social/Social_media-instagram.svg" alt="Instagram" title="Instagram"></a>
                     </div>
               </div>
-        
+
             <div class="col-md-2">
               <div class="menufooter">
 
@@ -195,7 +195,7 @@ email <a href="mailto:ktu@ktu.lt">ktu@ktu.lt</a></p>
 	                    <li class="footerli"><a class="downmenu mainf" title="KTU virtualus turas" target="_blank" href="https://tour.ktu.edu/#EN">Virtual KTU tour</a></li>
   </ul>
   </div></div>
-      
+
 </div>
 <div class="col-md-2">
   <a class="dropdown-toggle buttonktu" id="buttonfooter2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -214,10 +214,10 @@ email <a href="mailto:ktu@ktu.lt">ktu@ktu.lt</a></p>
 </div>
         </div>
 </div>
-             
 
 
-    
+
+
 </footer>
   </div>
 </template>
@@ -266,7 +266,7 @@ export default {
       this.enableCredentialEditor=false;
       this.btnDisabled=true;
     },
-    
+
     async goToWallet (walletId) {
       this.btnLoading = true;
 
@@ -296,7 +296,7 @@ export default {
 
 
 
-      
+
       console.log("legth :  ", Array.isArray(this.issuables.credentials));
       console.log("checked: ", Array.isArray(this.checkedCredentials));
 
@@ -305,7 +305,7 @@ export default {
       // }
 
       // this.issuables.credentials.forEach(elem => console.log(elem))
-      // let isssus = 
+      // let isssus =
       // let selectedIssuables = {
       //   credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
       // }
@@ -319,9 +319,9 @@ export default {
       for (var m in this.issuables.credentials){
         newMap.set(this.issuables.credentials[m].type,this.issuables.credentials[m]);
         dict[m] = this.issuables.credentials[m];
-        
-        
-        
+
+
+
       }
      // let filtered = new Map([...arr].filter(([k, v]) => this.checkedCredentials.findIndex(cc => cc=v.type)))
 
@@ -335,7 +335,7 @@ export default {
 
 
       //console.log(this.issuables.credentials["VerifiableId"])
-      
+
       // let selectedIssuables = {
       //   credentials: arr.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
       // }
@@ -346,7 +346,7 @@ export default {
 
       console.log("dict :")
       console.log(dict)
-      
+
       let cred = this.issuables.credentials;
       let tarkim = Object.keys(cred).filter((key) => key.includes('VerifiableId')).reduce((cur, key) => { return Object.assign(cur, { [key]: cred[key] })}, {})
 
@@ -358,7 +358,7 @@ export default {
   // filter((c) => this.checkedCredentials.findIndex(cc => cc==c) >= 0).
   // reduce((cur, key) => { return Object.assign(cur, { [key]: cred[key] })}, {})
   //     }
-      
+
 
       // let selectedIssuables = {
       //   credentials: this.checkedCredentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
@@ -366,13 +366,13 @@ export default {
       let selectedIssuables = {
         credentials: this.issuables.credentials.filter(c => this.checkedCredentials.findIndex(cc => cc == c.type) >= 0)
       }
-    
+
       console.log("credentials:")
       console.log(selectedIssuables.credentials)
       console.log("Selected issuables:", selectedIssuables)
       console.log("sessionid : " + this.sessionId)
       console.log(this.sessionId)
-      
+
       const params = this.sessionId != null ? { "sessionId": this.sessionId } : { "walletId": walletId }
       const walletUrl = await this.$axios.$post('/issuer-api/credentials/issuance/request', selectedIssuables, { params: params })
       console.log(walletUrl)
@@ -393,13 +393,13 @@ export default {
     padding: 0px;
     border: 0px;
     background-color: rgb(243, 242, 238);
-    
+
     box-shadow: 0px 0px 0px 0px;
     border-radius: 0px;
 }
 .downmenu{
-  
-    
+
+
     padding: 10px 15px 10px 15px;
     display: block;
     color: black;
@@ -415,7 +415,7 @@ export default {
     line-height: 35px;
     display: block;
     background-color: #f3f2ee;
-    
+
 }
 .footerli:hover{
   background-color: rgb(252, 251, 248);
@@ -564,7 +564,7 @@ footer .social-icons{
     text-align: center;
     color: #000101;
     font-family: "PF DinText Pro Medium";
-    
+
 }
 .lightgreentop{
       background: #e1f1ec;
@@ -593,6 +593,10 @@ footer .social-icons{
     font-weight: 500;
     line-height: 24px;
     margin-bottom: 20px;
+}
+._view-btn{
+  background-color: transparent;
+  border: none;
 }
 /* label{
   font-size: 20px;
